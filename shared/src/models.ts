@@ -54,4 +54,28 @@ export const schemas = {
   chartPreferences: chartPreferencesSchema,
 };
 
+// Subscription tiers control palette capabilities
+export const planTierSchema = z.enum(['free', 'pro', 'business']);
+export type PlanTier = z.infer<typeof planTierSchema>;
+
+// Organization-level settings and defaults
+export const organizationSettingsSchema = z.object({
+  organizationId: z.string(),
+  defaultPaletteId: z.string().optional(),
+  plan: planTierSchema.default('free'),
+  allowCustomPalettes: z.boolean().default(false),
+  chartPreferences: chartPreferencesSchema.partial(),
+});
+export type OrganizationSettings = z.infer<typeof organizationSettingsSchema>;
+
+// User-level settings override org defaults
+export const userSettingsSchema = z.object({
+  userId: z.string(),
+  organizationId: z.string(),
+  defaultPaletteId: z.string().optional(),
+  chartPreferences: chartPreferencesSchema.partial(),
+});
+export type UserSettings = z.infer<typeof userSettingsSchema>;
+
+
 

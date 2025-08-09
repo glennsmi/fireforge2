@@ -18,9 +18,14 @@
     "format": "prettier --write ."
   },
   "dependencies": {
+    "class-variance-authority": "^0.7.1",
     "firebase": "^12.1.0",
+    "lucide-react": "^0.539.0",
     "react": "^18.3.1",
-    "react-dom": "^18.3.1"
+    "react-dom": "^18.3.1",
+    "react-hook-form": "^7.62.0",
+    "react-router-dom": "^7.8.0",
+    "zod": "^4.0.16"
   },
   "devDependencies": {
     "@tailwindcss/postcss": "^4.1.11",
