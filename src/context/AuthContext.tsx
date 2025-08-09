@@ -1,6 +1,6 @@
 import React, { createContext, useContext, useEffect, useMemo, useState } from 'react';
 import { auth } from '../firebase';
-import { GoogleAuthProvider, onAuthStateChanged, signInWithPopup, signOut, User } from 'firebase/auth';
+import { GoogleAuthProvider, onAuthStateChanged, signInWithPopup, signInWithRedirect, signOut, User } from 'firebase/auth';
 
 type AuthContextValue = {
   user: User | null;
@@ -25,7 +25,20 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
 
   const signInWithGoogle = async () => {
     const provider = new GoogleAuthProvider();
-    await signInWithPopup(auth, provider);
+    try {
+      await signInWithPopup(auth, provider);
+    } catch (err: any) {
+      const code = err?.code as string | undefined;
+      if (code === 'auth/cancelled-popup-request' || code === 'auth/popup-closed-by-user') {
+        return; // ignore spurious or user-cancelled popups
+      }
+      if (code === 'auth/popup-blocked') {
+        // fallback for aggressive popup blockers
+        await signInWithRedirect(auth, provider);
+        return;
+      }
+      throw err;
+    }
   };
 
   const signOutUser = async () => {
