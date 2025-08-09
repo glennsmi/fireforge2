@@ -3,6 +3,7 @@ import { createBrowserRouter, RouterProvider } from 'react-router-dom';
 import { AuthProvider } from './context/AuthContext';
 import { ProtectedRoute } from './components/ProtectedRoute';
 import Shell from './pages/Shell';
+import { OrganizationProvider } from './context/OrganizationContext';
 import Login from './pages/Login';
 import { ChartsPage, DashboardsPage, HomePage, OrganizationPage, ProfilePage, SourcesPage } from './pages';
 
@@ -29,7 +30,9 @@ export default function App() {
 
   return (
     <AuthProvider>
-      <RouterProvider router={router} />
+      <OrganizationProvider>
+        <RouterProvider router={router} />
+      </OrganizationProvider>
     </AuthProvider>
   );
 }

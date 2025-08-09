@@ -1,12 +1,9 @@
 import React from 'react';
 import { Menu, Sun, Moon } from 'lucide-react';
-import { useAuth } from '../context/AuthContext';
 
 type HeaderProps = { onOpenSidebar: () => void };
 
 export default function Header({ onOpenSidebar }: HeaderProps) {
-  const { user, signOutUser } = useAuth();
-
   const toggleDark = () => {
     const el = document.documentElement;
     el.classList.toggle('dark');
@@ -28,9 +25,6 @@ export default function Header({ onOpenSidebar }: HeaderProps) {
           <Sun className="dark:hidden" />
           <Moon className="hidden dark:block" />
         </button>
-        {user && (
-          <button onClick={signOutUser} className="btn-outline text-sm">Sign out</button>
-        )}
       </div>
     </header>
   );
