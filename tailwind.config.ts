@@ -1,12 +1,6 @@
-import type { Config } from "tailwindcss";
-
+// Tailwind v4 prefers CSS-first configuration. Keep minimal TS config for darkMode only.
 export default {
-  darkMode: 'class',
-  content: ["./index.html", "./src/**/*.{ts,tsx}"],
-  theme: {
-    extend: {}
-  },
-  plugins: []
-} satisfies Config;
+  darkMode: 'class'
+};
 
 
