@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import Sidebar from '../components/Sidebar';
 import Header from '../components/Header';
-import { Outlet } from 'react-router-dom';
+import { Outlet } from 'react-router';
 
 export default function Shell() {
   const [mobileOpen, setMobileOpen] = useState(false);
