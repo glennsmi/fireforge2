@@ -19,17 +19,17 @@ export default function Header({ onOpenSidebar }: HeaderProps) {
   }, []);
 
   return (
-    <header className="h-14 border-b flex items-center px-3 gap-2 sticky top-0 bg-white/80 dark:bg-gray-950/80 backdrop-blur z-10">
+    <header className="h-14 border-b flex items-center px-3 gap-2 sticky top-0 bg-[rgb(var(--bg))]/80 backdrop-blur z-10">
       <button className="md:hidden p-2 rounded hover:bg-gray-100 dark:hover:bg-gray-800" onClick={onOpenSidebar}>
         <Menu />
       </button>
       <div className="ml-auto flex items-center gap-2">
-        <button aria-label="Toggle theme" className="p-2 rounded hover:bg-gray-100 dark:hover:bg-gray-800" onClick={toggleDark}>
+        <button aria-label="Toggle theme" className="p-2 rounded hover:bg-black/5 dark:hover:bg-white/5" onClick={toggleDark}>
           <Sun className="dark:hidden" />
           <Moon className="hidden dark:block" />
         </button>
         {user && (
-          <button onClick={signOutUser} className="text-sm px-3 py-1 rounded border hover:bg-gray-100 dark:hover:bg-gray-800">Sign out</button>
+          <button onClick={signOutUser} className="btn-outline text-sm">Sign out</button>
         )}
       </div>
     </header>

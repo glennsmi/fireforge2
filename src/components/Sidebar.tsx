@@ -23,12 +23,13 @@ export default function Sidebar({ onOpenMobile }: SidebarProps) {
   ];
 
   return (
-    <aside className={`hidden md:flex flex-col border-r ${collapsed ? 'w-16' : 'w-56'} transition-all` }>
+    <aside className={`hidden md:flex flex-col border-r ${collapsed ? 'w-16' : 'w-56'} transition-all bg-[rgb(var(--bg))]` }>
       <div className="h-14 border-b flex items-center px-3 gap-2">
         <button className="md:hidden" onClick={onOpenMobile}><Menu /></button>
-        <div className="font-bold text-orange-600">FireForge</div>
+        <img src="/logo/fireforge-logo.svg" className={`h-6 dark:hidden ${collapsed ? 'mx-auto' : ''}`} />
+        <img src="/logo/fireforge-logo-dark.svg" className={`h-6 hidden dark:block ${collapsed ? 'mx-auto' : ''}`} />
         <div className="ml-auto">
-          <button className="text-sm px-2 py-1 rounded hover:bg-gray-100 dark:hover:bg-gray-800" onClick={() => setCollapsed(!collapsed)}>{collapsed ? '»' : '«'}</button>
+          <button className="text-sm px-2 py-1 rounded hover:bg-black/5 dark:hover:bg-white/5" onClick={() => setCollapsed(!collapsed)}>{collapsed ? '»' : '«'}</button>
         </div>
       </div>
       <nav className="flex-1 p-2 space-y-1">
@@ -36,7 +37,7 @@ export default function Sidebar({ onOpenMobile }: SidebarProps) {
           <NavLink
             key={item.to}
             to={item.to}
-            className={({ isActive }) => `flex items-center gap-3 px-3 py-2 rounded hover:bg-gray-100 dark:hover:bg-gray-800 ${isActive ? 'bg-gray-100 dark:bg-gray-800 font-medium' : ''}`}
+            className={({ isActive }) => `flex items-center gap-3 px-3 py-2 rounded hover:bg-black/5 dark:hover:bg-white/5 ${isActive ? 'bg-black/5 dark:bg-white/5 font-medium' : ''}`}
           >
             <span className="shrink-0">{item.icon}</span>
             {!collapsed && <span className="truncate">{item.label}</span>}

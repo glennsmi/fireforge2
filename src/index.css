@@ -4,4 +4,32 @@
 
 html, body, #root { height: 100%; }
 
+@layer base {
+  :root {
+    --bg: 255 255 255;
+    --fg: 17 24 39;
+    --muted: 107 114 128;
+    --card: 255 255 255;
+    --border: 229 231 235;
+    --brand: 255 69 0; /* #FF4500 */
+    --brand-2: 215 38 56; /* #D72638 */
+  }
+  .dark {
+    --bg: 3 7 18;
+    --fg: 229 231 235;
+    --muted: 156 163 175;
+    --card: 17 24 39;
+    --border: 31 41 55;
+  }
+  body { @apply bg-[rgb(var(--bg))] text-[rgb(var(--fg))]; }
+}
+
+@layer components {
+  .card { @apply bg-[rgb(var(--card))] border border-[rgb(var(--border))] rounded-xl shadow-sm; }
+  .btn { @apply inline-flex items-center justify-center rounded-md px-4 py-2 text-sm font-medium transition-colors; }
+  .btn-primary { @apply btn text-white bg-[rgb(var(--brand))] hover:bg-orange-600; }
+  .btn-outline { @apply btn border border-[rgb(var(--border))] hover:bg-black/5 dark:hover:bg-white/5; }
+  .input { @apply w-full rounded-md border border-[rgb(var(--border))] bg-transparent px-3 py-2 outline-none focus:ring-2 focus:ring-orange-500; }
+}
+
 

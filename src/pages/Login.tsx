@@ -5,13 +5,20 @@ export default function Login() {
   const { signInWithGoogle } = useAuth();
   const [pending, setPending] = React.useState(false);
   return (
-    <div className="min-h-screen flex items-center justify-center p-8">
-      <div className="max-w-sm w-full border rounded-lg p-6 text-center">
-        <h1 className="text-2xl font-bold mb-4">Sign in to FireForge</h1>
+    <div className="min-h-screen grid place-items-center p-6">
+      <div className="card w-full max-w-md p-8 text-center space-y-6">
+        <div>
+          <img alt="FireForge" src="/logo/fireforge-logo.svg" className="mx-auto h-10 dark:hidden" />
+          <img alt="FireForge" src="/logo/fireforge-logo-dark.svg" className="mx-auto h-10 hidden dark:block" />
+        </div>
+        <div>
+          <h1 className="text-2xl font-semibold">Sign in to FireForge</h1>
+          <p className="text-sm text-gray-500 dark:text-gray-400">Use your Google account to continue</p>
+        </div>
         <button
           disabled={pending}
           onClick={async () => { setPending(true); try { await signInWithGoogle(); } finally { setPending(false); } }}
-          className={`w-full bg-white border rounded px-4 py-2 hover:bg-gray-50 ${pending ? 'opacity-60 cursor-not-allowed' : ''}`}
+          className={`btn-primary w-full ${pending ? 'opacity-60 cursor-not-allowed' : ''}`}
         >
           {pending ? 'Opening popup…' : 'Continue with Google'}
         </button>
