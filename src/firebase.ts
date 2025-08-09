@@ -13,6 +13,13 @@ const config = {
   measurementId: import.meta.env.VITE_FIREBASE_MEASUREMENT_ID,
 };
 
+// Debug logging to verify configuration
+console.log('Firebase Config:', {
+  projectId: config.projectId,
+  authDomain: config.authDomain,
+  usingEmulators: import.meta.env.VITE_USE_EMULATORS === 'true'
+});
+
 export const app = initializeApp(config);
 export const auth = getAuth(app);
 export const db = getFirestore(app);
