@@ -7,9 +7,11 @@
  * See a full list of supported triggers at https://firebase.google.com/docs/functions
  */
 
-import {setGlobalOptions} from "firebase-functions";
-import {onRequest} from "firebase-functions/https";
+import { setGlobalOptions } from "firebase-functions/v2";
+import { onCall, onRequest } from "firebase-functions/v2/https";
 import * as logger from "firebase-functions/logger";
+import { defineString } from "firebase-functions/params";
+import cors from "cors";
 
 // Start writing functions
 // https://firebase.google.com/docs/functions/typescript
@@ -24,7 +26,26 @@ import * as logger from "firebase-functions/logger";
 // functions should each use functions.runWith({ maxInstances: 10 }) instead.
 // In the v1 API, each function can only serve one request per container, so
 // this will be the maximum concurrent request count.
-setGlobalOptions({ maxInstances: 10 });
+setGlobalOptions({ region: "europe-west2" });
+
+export const ALLOWLIST_ORIGINS = defineString("ALLOWLIST_ORIGINS", {
+  default: "http://localhost:5173",
+});
+
+const corsMiddleware = cors({
+  origin: (origin, cb) => {
+    const allowlist = (ALLOWLIST_ORIGINS.value() || "").split(",").map((s) => s.trim());
+    if (!origin || allowlist.includes(origin)) return cb(null, true);
+    return cb(null, false);
+  },
+});
+
+export const healthCheck = onCall({ invoker: "public" }, async () => ({ ok: true }));
+
+export const exampleHttp = onRequest(async (req, res) => {
+  await new Promise<void>((resolve) => corsMiddleware(req, res, () => resolve()));
+  res.json({ ok: true });
+});
 
 // export const helloWorld = onRequest((request, response) => {
 //   logger.info("Hello logs!", {structuredData: true});

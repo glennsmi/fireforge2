@@ -4,4 +4,12 @@ lib
 .DS_Store
 firebase-debug.log
 
+# Environment files
+.env
+.env.*
+!.env.example
+functions/.env
+functions/.env.*
+!functions/.env.example
+
 
