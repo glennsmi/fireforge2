@@ -24,11 +24,10 @@ if (import.meta.env.VITE_USE_EMULATORS === 'true') {
   const firestorePort = Number(import.meta.env.VITE_EMULATORS_FIRESTORE_PORT || 8080);
   const storagePort = Number(import.meta.env.VITE_EMULATORS_STORAGE_PORT || 9199);
   // Avoid reconnecting in tests/hot reload loops
-  // @ts-expect-error no upstream type for _emulatorStarted
-  if (!(auth as any)._emulatorStarted) {
+  const anyAuth = auth as unknown as { _emulatorStarted?: boolean };
+  if (!anyAuth._emulatorStarted) {
     connectAuthEmulator(auth, `http://${host}:${authPort}`);
-    // @ts-expect-error
-    (auth as any)._emulatorStarted = true;
+    anyAuth._emulatorStarted = true;
   }
   connectFirestoreEmulator(db, host, firestorePort);
   connectStorageEmulator(storage, host, storagePort);
